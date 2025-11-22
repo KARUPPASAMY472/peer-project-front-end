@@ -8,6 +8,7 @@ function Feedback() {
 
   const submitFeedback = async () => {
     const user = auth.currentUser;
+    console.log("firebase auth : ",auth)
     if (!user) return alert("Please login to submit feedback");
 
     if (text.trim() === "") {
