@@ -163,7 +163,12 @@ function ProjectDetails() {
 
       {/* Rating */}
       <div className="mt-5 flex gap-6 text-gray-700 font-medium">
-        <p>⭐ Rating: {project.rating?.total || 0}</p>
+        <p className="text-yellow-500 font-semibold">
+        ⭐ Rating: 
+      {project?.rating
+    ? (project.rating.total / project.rating.count).toFixed(1)
+    : "0.0"}
+    </p>
         <p>👁 Views: {project.rating?.count || 0}</p>
       </div>
 

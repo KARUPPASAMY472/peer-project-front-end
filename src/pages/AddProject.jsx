@@ -20,7 +20,7 @@ function AddProject(){
         setGithub(p.githubLink||""); setDemo(p.demoLink||"");
       }).catch(()=>{});
     }
-  }, [id]);
+  }, [id]); 
 
   const submit = async () => {
     try {
