@@ -42,24 +42,25 @@ function Profile() {
     console.error("Delete failed", err);
   }
   };
-  
-const removeBookmark = async (projectId) => {
-  try {
-    await api.delete("/bookmarks", {
-      data: {
-        userUid: user.uid,
-        projectId
-      }
-    });
 
+  
+  const removeBookmark = async (projectId) => {
+  try {
+    console.log("Removing bookmark:", projectId);
+
+    await api.delete(`/bookmarks/${projectId}?userUid=${user.uid}`);
+
+    // Remove from UI
     setBookmarks(prev =>
       prev.filter(b => b.projectId._id !== projectId)
     );
 
   } catch (err) {
-    console.error(err);
+    console.error("Remove bookmark error:", err);
   }
 };
+
+
 
   
 
