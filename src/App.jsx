@@ -19,6 +19,7 @@ function App(){
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="/add" element={<AddProject />} />
+        <Route path="/edit/:id" element={<AddProject />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

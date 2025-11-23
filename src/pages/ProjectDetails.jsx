@@ -118,7 +118,7 @@ function ProjectDetails() {
     }
 
   };
-
+  
   if (!project) return <div className="p-6 text-center text-gray-500">Loading...</div>;
 
   return (
@@ -164,11 +164,11 @@ function ProjectDetails() {
       {/* Rating */}
       <div className="mt-5 flex gap-6 text-gray-700 font-medium">
         <p className="text-yellow-500 font-semibold">
-        ⭐ Rating: 
-      {project?.rating
-    ? (project.rating.total / project.rating.count).toFixed(1)
-    : "0.0"}
-    </p>
+          ⭐ Rating: 
+        {project?.rating
+          ? (project.rating.total / project.rating.count).toFixed(1)
+          : "0.0"}
+        </p>
         <p>👁 Views: {project.rating?.count || 0}</p>
       </div>
 

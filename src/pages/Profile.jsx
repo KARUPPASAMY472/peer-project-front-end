@@ -33,6 +33,18 @@ function Profile() {
     return () => unsub();
   }, []);
 
+  
+    const deleteProduct = async (id) => {
+  try {
+    await api.delete(`/projects/${id}`);
+    setProjects(projects.filter((p) => p._id !== id)); // remove from UI
+  } catch (err) {
+    console.error("Delete failed", err);
+  }
+};
+
+
+
   if (loading) return <div className="p-8 text-center text-lg">Loading...</div>;
   if (!user) return <div className="p-8 text-center text-lg">Please login</div>;
 
@@ -73,6 +85,17 @@ function Profile() {
                 >
                   View Project →
                 </Link>
+
+                
+                <Link to={`/edit/${p._id}`}>Edit</Link>
+                
+           <button 
+              className="text-red-600 hover:underline ml-4"
+              onClick={() => deleteProduct(p._id)}
+            >
+              Delete
+            </button>
+     
               </div>
             ))}
           </div>

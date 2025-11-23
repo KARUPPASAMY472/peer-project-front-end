@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import { Link } from "react-router-dom";
+import { use } from "react";
 
 function Home(){
   const [q, setQ] = useState("");
@@ -8,6 +9,8 @@ function Home(){
   const [projects, setProjects] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+
 
   const load = async () => {
     try {
@@ -16,11 +19,17 @@ function Home(){
       setTotal(res.data.total);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);   // 🔥 stop loading after data arrives
     }
   };
 
-  useEffect(() => { load(); }, [q, tag, page]);
+  useEffect(() => {  load();
+  }, [q, tag, page]);
 
+  
+if (loading) return <div className="p-8 text-center text-lg">Loading...</div>;
+  
   return (
   <div className="px-4 sm:px-6 py-6 max-w-6xl mx-auto">
 
