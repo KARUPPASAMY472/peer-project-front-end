@@ -41,7 +41,27 @@ function Profile() {
   } catch (err) {
     console.error("Delete failed", err);
   }
+  };
+  
+const removeBookmark = async (projectId) => {
+  try {
+    await api.delete("/bookmarks", {
+      data: {
+        userUid: user.uid,
+        projectId
+      }
+    });
+
+    setBookmarks(prev =>
+      prev.filter(b => b.projectId._id !== projectId)
+    );
+
+  } catch (err) {
+    console.error(err);
+  }
 };
+
+  
 
 
 
@@ -102,36 +122,44 @@ function Profile() {
         )}
       </div>
 
-      {/* BOOKMARKS */}
-      <div>
-        <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-          Bookmarked Projects
-        </h3>
+{/* BOOKMARKS */}
+<div>
+  <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+    Bookmarked Projects
+  </h3>
 
-        {bookmarks.length === 0 ? (
-          <p className="text-gray-500">No bookmarks yet.</p>
-        ) : (
-          <div className="grid gap-4">
-            {bookmarks.map((b) => (
-              <div
-                key={b._id}
-                className="bg-white p-4 shadow-sm rounded-lg border hover:shadow-md transition"
-              >
-                <h4 className="text-lg font-medium text-gray-800">
-                  {b.projectId?.title}
-                </h4>
+  {bookmarks.length === 0 ? (
+    <p className="text-gray-500">No bookmarks yet.</p>
+  ) : (
+    <div className="grid gap-4">
+      {bookmarks.map((b) => (
+        <div
+          key={b._id}
+          className="bg-white p-4 shadow-sm rounded-lg border hover:shadow-md transition"
+        >
+          <h4 className="text-lg font-medium text-gray-800">
+            {b.projectId?.title}
+          </h4>
 
-                <Link
-                  to={`/project/${b.projectId?._id}`}
-                  className="text-blue-600 mt-2 inline-block hover:underline"
-                >
-                  View Project →
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+          <Link
+            to={`/project/${b.projectId?._id}`}
+            className="text-blue-600 mt-2 inline-block hover:underline"
+          >
+            View Project →
+          </Link>
+
+          {/* REMOVE BUTTON */}
+          <button
+            onClick={() => removeBookmark(b.projectId?._id)}
+            className="mt-2 text-red-600 hover:underline"
+          >
+            Remove Bookmark
+          </button>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
     </div>
   );
 }
